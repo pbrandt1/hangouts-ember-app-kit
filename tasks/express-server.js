@@ -51,7 +51,7 @@ module.exports = function(grunt) {
       app.use(static({ directory: 'public' }));
       app.use(static({ urlRoot: '/tests', directory: 'tests' })); // For test_helper.js and test_loader.js
       app.use(static({ directory: 'tmp/result' }));
-      app.use(static({ file: 'tmp/result/index.html', ignoredFileExtensions: /\.\w{1,5}$/ })); // Gotta catch 'em all
+      app.use(static({ file: 'tmp/result/index.xml', ignoredFileExtensions: /\.\w{1,5}$/ })); // Gotta catch 'em all
     } else {
       // For `expressServer:dist`
 
@@ -66,6 +66,16 @@ module.exports = function(grunt) {
     }
     app.listen(port);
     grunt.log.ok('Started development server on port %d.', port);
+
+    var httpsPort = 4343;
+    var credentials = {
+      key: fs.readFileSync(__dirname + '/server.key'),
+      cert: fs.readFileSync(__dirname + '/server.crt')
+    };
+    var https = require('https');
+    https.createServer(credentials, app).listen(httpsPort);
+    grunt.log.ok('Started development server on https port ', httpsPort);
+
     if (!this.flags.keepalive) { done(); }
   });
 
@@ -82,7 +92,7 @@ module.exports = function(grunt) {
   }
 
   function static(options) {
-    return function(req, res, next) { // Gotta catch 'em all (and serve index.html)
+    return function(req, res, next) { // Gotta catch 'em all (and serve index.xml)
       var filePath = "";
       if (options.directory) {
         var regex = new RegExp('^' + (options.urlRoot || ''));
@@ -99,12 +109,12 @@ module.exports = function(grunt) {
         if (options.ignoredFileExtensions) {
           if (options.ignoredFileExtensions.test(req.path)) {
             res.send(404, {error: 'Resource not found'});
-            return; // Do not serve index.html
+            return; // Do not serve index.xml
           }
         }
 
-        // Is it a directory? If so, search for an index.html in it.
-        if (stats.isDirectory()) { filePath = path.join(filePath, 'index.html'); }
+        // Is it a directory? If so, search for an index.xml in it.
+        if (stats.isDirectory()) { filePath = path.join(filePath, 'index.xml'); }
 
         // Serve the file
         res.sendfile(filePath, function(err) {
