@@ -201,10 +201,10 @@ module.exports = function(grunt) {
 
   // Styles
   grunt.registerTask('buildStyles', filterAvailable([
-                     'compass:compile',
+//                     'compass:compile',
                      'sass:compile',
-                     'less:compile',
-                     'stylus:compile',
+//                     'less:compile',
+//                     'stylus:compile',
                      'copy:cssToResult',
                      'autoprefixer:app'
                      ]));
