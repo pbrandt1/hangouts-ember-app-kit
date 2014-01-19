@@ -1,4 +1,8 @@
-# Ember App Kit [![Build Status](https://travis-ci.org/stefanpenner/ember-app-kit.png?branch=master)](https://travis-ci.org/stefanpenner/ember-app-kit)
+# Ember App Kit Google Hangouts Remix
+
+This is a starting point for ember-izing a google hangout app.  Based on Stefan Penner's [Ember App Kit](https://github.com/stefanpenner/ember-app-kit).
+
+
 
 Ember App Kit aims to be the foundation for ambitious web applications built with Ember. It's intended to be used either on its own or as the base scaffolding for projects using [Ember Tools](https://github.com/rpflorence/ember-tools), [generator-ember](https://github.com/yeoman/generator-ember) and a hypothetical official [executable](https://github.com/stefanpenner/ember-cli) at some point in the future.
 
