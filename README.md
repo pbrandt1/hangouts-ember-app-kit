@@ -12,7 +12,11 @@ At the very least, it helps setup your Ember.js applications directory structure
 
 We welcome ideas and experiments.
 
-## Getting Started
+## Getting Started with Google Hangouts
+* Start a Google API's project and add in the Hangouts module.
+* Set your gadget URL to https://[your ip]:4343/index.xml
+
+## Getting Started with Ember App Kit
 
 * [Project Documentation Site](http://stefanpenner.github.io/ember-app-kit/)
 * [Getting Started Guide](http://stefanpenner.github.io/ember-app-kit/guides/getting-started.html)
