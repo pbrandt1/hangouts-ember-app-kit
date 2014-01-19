@@ -5,7 +5,7 @@ var scripts = '{app,tests}/**/*.{js,coffee,em}',
     templates = 'app/templates/**/*.{hbs,handlebars,hjs,emblem}',
     sprites = 'app/sprites/**/*.{png,jpg,jpeg}',
     styles = 'app/styles/**/*.{css,sass,scss,less,styl}',
-    indexHTML = 'app/index.xml',
+    indexHTML = 'app/index.html',
     other = '{app,tests,public}/**/*';
 
 module.exports = {
@@ -23,11 +23,11 @@ module.exports = {
   },
   styles: {
     files: [styles],
-    tasks: ['lock', 'buildStyles', 'unlock']
+    tasks: ['lock', 'buildStyles', 'url_transform:app', 'unlock']
   },
   indexHTML: {
     files: [indexHTML],
-    tasks: ['lock', 'buildIndexHTML:debug', 'unlock']
+    tasks: ['lock', 'buildIndexHTML:debug', 'url_transform:app', 'unlock']
   },
   other: {
     files: [other, '!'+scripts, '!'+templates, '!'+styles, '!'+indexHTML],

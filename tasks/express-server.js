@@ -52,11 +52,13 @@ module.exports = function(grunt) {
       app.use(static({ urlRoot: '/tests', directory: 'tests' })); // For test_helper.js and test_loader.js
       app.use(static({ directory: 'tmp/result' }));
       app.use(static({ file: 'tmp/result/index.xml', ignoredFileExtensions: /\.\w{1,5}$/ })); // Gotta catch 'em all
+      app.use(static({ file: 'tmp/result/index.html', ignoredFileExtensions: /\.\w{1,5}$/ })); // Gotta catch 'em all
     } else {
       // For `expressServer:dist`
 
       app.use(lock);
       app.use(static({ directory: 'dist' }));
+      app.use(static({ file: 'dist/index.xml', ignoredFileExtensions: /\.\w{1,5}$/ })); // Gotta catch 'em all
       app.use(static({ file: 'dist/index.html', ignoredFileExtensions: /\.\w{1,5}$/ })); // Gotta catch 'em all
     }
 
@@ -74,7 +76,7 @@ module.exports = function(grunt) {
     };
     var https = require('https');
     https.createServer(credentials, app).listen(httpsPort);
-    grunt.log.ok('Started development server on https port ', httpsPort);
+    grunt.log.ok('Started development server on https port', httpsPort);
 
     if (!this.flags.keepalive) { done(); }
   });
@@ -92,7 +94,7 @@ module.exports = function(grunt) {
   }
 
   function static(options) {
-    return function(req, res, next) { // Gotta catch 'em all (and serve index.xml)
+    return function(req, res, next) { // Gotta catch 'em all (and serve index.html)
       var filePath = "";
       if (options.directory) {
         var regex = new RegExp('^' + (options.urlRoot || ''));
@@ -109,12 +111,12 @@ module.exports = function(grunt) {
         if (options.ignoredFileExtensions) {
           if (options.ignoredFileExtensions.test(req.path)) {
             res.send(404, {error: 'Resource not found'});
-            return; // Do not serve index.xml
+            return; // Do not serve index.html
           }
         }
 
-        // Is it a directory? If so, search for an index.xml in it.
-        if (stats.isDirectory()) { filePath = path.join(filePath, 'index.xml'); }
+        // Is it a directory? If so, search for an index.html in it.
+        if (stats.isDirectory()) { filePath = path.join(filePath, 'index.html'); }
 
         // Serve the file
         res.sendfile(filePath, function(err) {

@@ -1,3 +1,3 @@
 module.exports = {
-  html: ['dist/index.xml'],
+  html: ['dist/index.html'],
 };

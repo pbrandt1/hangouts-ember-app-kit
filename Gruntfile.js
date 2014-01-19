@@ -142,6 +142,7 @@ module.exports = function(grunt) {
                      'createResultDirectory', // Create directoy beforehand, fixes race condition
                      'fancySprites:create',
                      'concurrent:buildDebug', // Executed in parallel, see config below
+                     'url_transform:app'
                      ]));
 
   grunt.registerTask('createDistVersion', filterAvailable([
@@ -156,6 +157,7 @@ module.exports = function(grunt) {
 
                      'rev', // Appends 8 char hash value to filenames
                      'usemin', // Replaces file references
+                     'url_transform:dist', // adds in absolute urls
                      'htmlmin:dist' // Removes comments and whitespace
                      ]));
 
